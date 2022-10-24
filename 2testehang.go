@@ -19,6 +19,7 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
+
 	splitted := strings.Split(string(data), "\n")
 	tries := 9
 	fmt.Println(getStringFromArray(splitted, tries*8, (tries+1)*8))
