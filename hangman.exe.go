@@ -68,7 +68,7 @@ func main() {
 			if totaltry == 0 {
 				{
 					{
-						data, err := ioutil.ReadFile("hangmanposition.txt") // lire le fichier text.txt
+						data, err := ioutil.ReadFile("hangman.txt") // lire le fichier text.txt
 						if err != nil {
 							fmt.Println(err)
 						}
