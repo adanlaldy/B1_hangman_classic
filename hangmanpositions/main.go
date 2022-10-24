@@ -22,13 +22,22 @@ func randomword() string {
 	return result
 }
 
-func hangmanposition(data []string, start int, end int) string {
-	result := ""
-	for i := start - 1; i < end; i++ {
-		result = result + data[i] + "\n"
+func test(randomword string, slice []string) bool {
+	for i := 0; i < len(randomword); i++ {
+		if slice[i] != string(randomword[i]) {
+			return false
+		}
 	}
-	return result
+	return true
 }
+
+//func hangmanposition(data []string, start int, end int) string {
+//	result := ""
+//	for i := start - 1; i < end; i++ {
+//		result = result + data[i] + "\n"
+//	}
+//	return result
+//}
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
@@ -39,7 +48,7 @@ func main() {
 	n := len(randomword)/2 - 1
 	slice := make([]string, len(randomword))
 	slicerandomword := make([]string, len(randomword))
-	// choisir une lettre
+	// imprimer les lettres dans la slicerandomword
 	for i := 0; i < len(randomword); i++ {
 		slicerandomword[i] = string(randomword[i])
 	}
@@ -63,43 +72,36 @@ func main() {
 		fmt.Print(" ")
 	}
 	fmt.Print("\n")
-
-	for z := false; z != true; {
-		// break si la slice contient toutes les lettres
-		k := false
-		for j := 0; j < len(slicerandomword); j++ {
-			if slice[j] == slicerandomword[j] {
-				k = true
-			} else {
-				k = false
-			}
-		}
-		if k == true {
-			fmt.Print("\n")
-			fmt.Println("Congrats !")
-			break
+	// boucle du programme
+	for i := false; i != true; {
+		b := false
+		if totaltry == 0 {
+			fmt.Println("\n")
+			fmt.Println("Try again!")
+			return
 		}
 		fmt.Print("Choose: ")
 		fmt.Scan(&try)
 		if try == randomword {
-			for j := 0; j < len(slice); j++ {
+			for j := 0; j < len(slicerandomword); j++ {
 				letter = slicerandomword[j]
 				fmt.Print(letter)
 				fmt.Print(" ")
 			}
 			fmt.Println("\n")
-			fmt.Println("Congrats !")
+			fmt.Println("Congrats!")
 			break
 		}
-		// slice[i] prend la valeur de la lettre[i]
-		f := false // A CHECKER
+		// si lettre entrée juste, imprimer dans la slice la lettre
 		for i := 0; i < len(randomword); i++ {
-			if try == string(randomword[i]) {
+			if try == slicerandomword[i] {
 				slice[i] = try
-				f = true
-			} else {
-				f = false
+				b = true
 			}
+		}
+		if b == false {
+			totaltry--
+			fmt.Printf("Not present in the word, %d attempts remaining\n", totaltry)
 		}
 		for j := 0; j < len(slice); j++ {
 			letter = slice[j]
@@ -107,16 +109,11 @@ func main() {
 			fmt.Print(" ")
 		}
 		fmt.Print("\n")
-		if f == false {
-			totaltry--
-			fmt.Printf("Not present in the word, %d attempts remaining\n", totaltry)
-		}
-		// conditions
-		if totaltry == 1 {
-			totaltry--
-			fmt.Printf("Not present in the word, %d attempts remaining\n", totaltry)
-			fmt.Println("The word was: ", randomword)
-			break
+		// si la slice contient les mêmes lettres que la slicerandomword, i est vraie ET ça break, sinon i est faux
+		if test(randomword, slice) == true {
+			fmt.Print("\n")
+			fmt.Println("Well played!")
+			return
 		}
 	}
 }
