@@ -86,7 +86,7 @@ func main() {
 		b := false
 		if totaltry == 0 {
 			fmt.Println("\nThe word was:", randomword)
-			fmt.Println("Try again!")
+			fmt.Println("\nTry again!")
 			return
 		}
 		fmt.Print("\nChoose: ")
