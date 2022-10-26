@@ -71,7 +71,7 @@ func main() {
 		fmt.Print(" ")
 	}
 	fmt.Print("\n")
-	// boucle du programme
+	// program loop
 	for i := false; i != true; {
 		b := false
 		if totaltry == 0 {
