@@ -57,7 +57,7 @@ func main() {
 	n := len(randomword)/2 - 1
 	slice := make([]string, len(randomword))
 	slicerandomword := make([]string, len(randomword))
-	//slicetry := []string{}
+	slicetry := []string{}
 	// print letters in slicerandomword
 	for i := 0; i < len(randomword); i++ {
 		slicerandomword[i] = string(randomword[i])
@@ -84,14 +84,21 @@ func main() {
 	fmt.Print("\n")
 	// buckle of the program
 	for i := false; i != true; {
+		a := false
 		b := false
 		if totaltry == 0 {
 			fmt.Println("\nThe word was:", randomword)
-			fmt.Println("Try again!")
+			fmt.Println("\nTry again!")
 			return
 		}
 		fmt.Print("\nChoose: ")
 		fmt.Scan(&try)
+		for i := 0; i < len(slicetry); i++ {
+			if try == slicetry[i] {
+				fmt.Println("You can't enter the same letter twice, try again.")
+				a = true
+			}
+		}
 		if try == randomword {
 			for j := 0; j < len(slicerandomword); j++ {
 				letter = slicerandomword[j]
@@ -108,7 +115,9 @@ func main() {
 				b = true
 			}
 		}
-		if b == false {
+		if b == false && a == false {
+			slicetry = append(slicetry, try)
+			totaltry--
 			totaltry--
 			fmt.Printf("Not present in the word, %d attempts remaining\n", totaltry)
 			positionjose(totaltry)
