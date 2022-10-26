@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"math/rand"
+	"os"
 	"strings"
 	"time"
 )
@@ -21,8 +22,7 @@ func randomword() string {
 	result := split[rand]
 	return result
 }
-
-func test(randomword string, slice []string) bool {
+func ifsliceisfull(randomword string, slice []string) bool {
 	for i := 0; i < len(randomword); i++ {
 		if slice[i] != string(randomword[i]) {
 			return false
@@ -30,15 +30,24 @@ func test(randomword string, slice []string) bool {
 	}
 	return true
 }
-
-//func hangmanposition(data []string, start int, end int) string {
-//	result := ""
-//	for i := start - 1; i < end; i++ {
-//		result = result + data[i] + "\n"
-//	}
-//	return result
-//}
-
+func getStringFromArray(data []string, start int, end int) string {
+	result := ""
+	for i := start; i < end-1 && i < len(data); i++ {
+		result += data[i] + "\n"
+	}
+	return result
+}
+func positionjose(life int) {
+	data, err := os.ReadFile("hangmanpositions") // lire le fichier text.txt
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	content := strings.ReplaceAll(string(data), "\r", "")
+	splitted := strings.Split(content, "\n")
+	tries := 9 - life
+	fmt.Print(getStringFromArray(splitted, tries*8, (tries+1)*8))
+}
 func main() {
 	rand.Seed(time.Now().UnixNano())
 	randomword := strings.ToUpper(randomword())
@@ -48,16 +57,16 @@ func main() {
 	n := len(randomword)/2 - 1
 	slice := make([]string, len(randomword))
 	slicerandomword := make([]string, len(randomword))
-	// imprimer les lettres dans la slicerandomword
+	// print letters in slicerandomword
 	for i := 0; i < len(randomword); i++ {
 		slicerandomword[i] = string(randomword[i])
 	}
-	// affichage des _
+	// print the "_"
 	for i := 0; i < len(randomword); i++ {
 		slice[i] = "_"
 	}
 	fmt.Println("Good Luck, you have 10 attempts.")
-	//affichage de n nombres de lettres dans la slice
+	// print n number of letters in the slice
 	for i := 0; i < n; i++ {
 		c := randomword[rand.Intn(len(randomword))]
 		for j := 0; j < len(randomword); j++ {
@@ -72,15 +81,15 @@ func main() {
 		fmt.Print(" ")
 	}
 	fmt.Print("\n")
-	// boucle du programme
+	// buckle of the program
 	for i := false; i != true; {
 		b := false
 		if totaltry == 0 {
-			fmt.Println("\n")
+			fmt.Println("\nThe word was:", randomword)
 			fmt.Println("Try again!")
 			return
 		}
-		fmt.Print("Choose: ")
+		fmt.Print("\nChoose: ")
 		fmt.Scan(&try)
 		if try == randomword {
 			for j := 0; j < len(slicerandomword); j++ {
@@ -88,11 +97,10 @@ func main() {
 				fmt.Print(letter)
 				fmt.Print(" ")
 			}
-			fmt.Println("\n")
-			fmt.Println("Congrats!")
-			break
+			fmt.Println("\n\nCongrats!")
+			return
 		}
-		// si lettre entrée juste, imprimer dans la slice la lettre
+		// if the enter is true, print in the slice the letter
 		for i := 0; i < len(randomword); i++ {
 			if try == slicerandomword[i] {
 				slice[i] = try
@@ -102,17 +110,17 @@ func main() {
 		if b == false {
 			totaltry--
 			fmt.Printf("Not present in the word, %d attempts remaining\n", totaltry)
+			positionjose(totaltry)
+		} else {
+			for j := 0; j < len(slice); j++ {
+				letter = slice[j]
+				fmt.Print(letter)
+				fmt.Print(" ")
+			}
 		}
-		for j := 0; j < len(slice); j++ {
-			letter = slice[j]
-			fmt.Print(letter)
-			fmt.Print(" ")
-		}
-		fmt.Print("\n")
-		// si la slice contient les mêmes lettres que la slicerandomword, i est vraie ET ça break, sinon i est faux
-		if test(randomword, slice) == true {
-			fmt.Print("\n")
-			fmt.Println("Well played!")
+		// if the slice contains the same letters than slicerandomword, i is true AND it return, else i is false
+		if ifsliceisfull(randomword, slice) == true {
+			fmt.Println("\n\nWell played!")
 			return
 		}
 	}
