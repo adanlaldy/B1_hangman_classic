@@ -134,6 +134,6 @@ func main2(life int) {
 	}
 
 	splitted := strings.Split(string(data), "\n")
-	tries := life
+	tries := 9 - life
 	fmt.Println(getStringFromArray(splitted, tries*8, (tries+1)*8))
 }
