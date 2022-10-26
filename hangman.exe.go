@@ -47,7 +47,7 @@ func main() {
 	n := len(randomword)/2 - 1
 	slice := make([]string, len(randomword))
 	slicerandomword := make([]string, len(randomword))
-	// imprimer les lettres dans la slicerandomword
+	// print the letters in the slicerandomword
 	for i := 0; i < len(randomword); i++ {
 		slicerandomword[i] = string(randomword[i])
 	}
@@ -56,7 +56,7 @@ func main() {
 		slice[i] = "_"
 	}
 	fmt.Println("Good Luck, you have 10 attempts.")
-	//affichage de n nombres de lettres dans la slice
+	//display of n numbers of letters in the slice
 	for i := 0; i < n; i++ {
 		c := randomword[rand.Intn(len(randomword))]
 		for j := 0; j < len(randomword); j++ {
@@ -91,7 +91,7 @@ func main() {
 			fmt.Println("Congrats!")
 			break
 		}
-		// si lettre entrée juste, imprimer dans la slice la lettre
+		// if letter entered correctly, print the letter in the slice
 		for i := 0; i < len(randomword); i++ {
 			if try == slicerandomword[i] {
 				slice[i] = try
@@ -110,7 +110,7 @@ func main() {
 			fmt.Print(" ")
 		}
 		fmt.Print("\n")
-		// si la slice contient les mêmes lettres que la slicerandomword, i est vraie ET ça break, sinon i est faux
+		// if the slice contains the same letters as the slicerandomword, i is true AND it breaks, otherwise i is false
 		if test(randomword, slice) == true {
 			fmt.Print("\n")
 			fmt.Println("Well played!")
@@ -128,7 +128,7 @@ func getStringFromArray(data []string, start int, end int) string {
 }
 
 func main2(life int) {
-	data, err := os.ReadFile("hangman.txt") // lire le fichier text.txt
+	data, err := os.ReadFile("hangman.txt") // read the text.txt file
 	if err != nil {
 		fmt.Println(err)
 	}
