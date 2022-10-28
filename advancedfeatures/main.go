@@ -93,12 +93,6 @@ func main() {
 		}
 		fmt.Print("\nChoose: ")
 		fmt.Scan(&try)
-		for i := 0; i < len(slicetry); i++ {
-			if try == slicetry[i] {
-				fmt.Println("You can't enter the same letter twice, try again.")
-				a = true
-			}
-		}
 		if try == randomword {
 			for j := 0; j < len(slicerandomword); j++ {
 				letter = slicerandomword[j]
@@ -108,12 +102,23 @@ func main() {
 			fmt.Println("\n\nCongrats!")
 			return
 		}
-		// if the enter is true, print in the slice the letter
+		// if the input is true, print in the slice the letter
 		for i := 0; i < len(randomword); i++ {
 			if try == slicerandomword[i] {
 				slice[i] = try
 				b = true
 			}
+		}
+		// error message when the input is already entered
+		for i := 0; i < len(slicetry); i++ {
+			if try == slicetry[i] {
+				fmt.Println("You can't enter the same letter twice, try again.")
+				a = true
+				b = false
+			}
+		}
+		if b == true {
+			slicetry = append(slicetry, try)
 		}
 		if b == false && a == false {
 			slicetry = append(slicetry, try)
