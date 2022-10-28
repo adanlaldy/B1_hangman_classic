@@ -119,7 +119,7 @@ func main() {
 	}
 }
 
-func getStringFromArray(data []string, start int, end int) string {
+func getStringFromArray3(data []string, start int, end int) string {
 	result := ""
 	for i := start; i < end && i < len(data); i++ {
 		result = result + data[i] + "\n"
