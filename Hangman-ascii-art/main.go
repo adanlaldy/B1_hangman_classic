@@ -1,31 +1,24 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"strings"
 )
 
-func getStringFromArray(data []string, start int, end int) string {
-	result := ""
-	for i := start; i < end && i < len(data); i++ {
-		result = result + data[i] + "\n"
-	}
-	return result
-}
-
-func PrintAscii(txt string) {
-	content, err := os.ReadFile("standard.txt")
+func Print(txt string) {
+	content, err := os.ReadFile("res/standard.txt")
 	if err != nil {
-		fmt.Println("bip bip boop")
-		return
+		os.Exit(1)
 	}
-	split := strings.Split(string(content), "\n")
-	for _, val := range txt {
-		fmt.Println(getStringFromArray(split, int((val-32)*9), int((val-31)*9)))
+	split := strings.Split(strings.ReplaceAll(string(content), "\r", ""), "\n")
+	for d := 0; d < 9; d++ {
+		for index := 0; index < len(txt); index++ {
+			print(split[(int(txt[index]-32)*9)+d] + "")
+		}
+		println()
 	}
 }
 
 func main() {
-	PrintAscii("hello")
+	Print("hello")
 }
