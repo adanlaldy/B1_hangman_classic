@@ -38,7 +38,7 @@ func getStringFromArray(data []string, start int, end int) string {
 	return result
 }
 func positionjose(life int) {
-	data, err := os.ReadFile("hangmanpositions") // lire le fichier text.txt
+	data, err := os.ReadFile("hangmanpositions.txt") // lire le fichier text.txt
 	if err != nil {
 		fmt.Println(err)
 		return
