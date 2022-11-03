@@ -10,20 +10,6 @@ import (
 	"time"
 )
 
-func randomword1() string {
-	arg := os.Args[1]
-	rand.Seed(time.Now().UnixNano())
-	content, err := ioutil.ReadFile(arg)
-	if err != nil {
-		log.Fatal(err)
-	}
-	strconvert := string(content)
-	split := strings.Split(strconvert, "\r\n")
-	rand := rand.Intn(len(split))
-	result := split[rand]
-	return result
-}
-
 func Print(txt string) {
 	content, err := os.ReadFile("res/standard.txt")
 	if err != nil {

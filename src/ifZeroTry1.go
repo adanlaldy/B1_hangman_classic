@@ -16,14 +16,6 @@ func ifZeroTry(totaltry int, randomword string) bool {
 	}
 	return boolean
 }
-func ifSliceIsFull1(randomword string, slice []string) bool {
-	for i := 0; i < len(randomword); i++ {
-		if slice[i] != string(randomword[i]) {
-			return false
-		}
-	}
-	return true
-}
 func ifSliceIsFull(randomword string, slice []string) bool {
 	for i := 0; i < len(randomword); i++ {
 		if slice[i] != string(randomword[i]) {
