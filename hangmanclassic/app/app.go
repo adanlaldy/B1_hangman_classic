@@ -33,9 +33,9 @@ func Randomword() string {
 	result := split[rand]
 	return result
 }
-func IfSliceIsFull(randomword string, slice []string) bool {
-	for i := 0; i < len(randomword); i++ {
-		if slice[i] != string(randomword[i]) {
+func IfSliceIsFull(data *HangManData) bool {
+	for i := 0; i < len(data.Randomword); i++ {
+		if data.Slice[i] != string(data.Randomword[i]) {
 			return false
 		}
 	}
@@ -59,23 +59,23 @@ func PositionJose(life int) {
 	tries := 9 - life
 	fmt.Print(GetStringFromArray(splitted, tries*8, (tries+1)*8))
 }
-func PrintLettersInTheFullSlice(sliceRandomword []string, randomword string) {
-	for i := 0; i < len(randomword); i++ {
-		sliceRandomword[i] = string(randomword[i])
+func PrintLettersInTheFullSlice(data *HangManData) {
+	for i := 0; i < len(data.Randomword); i++ {
+		data.SliceRandomword[i] = string(data.Randomword[i])
 	}
 }
-func PrintNLetters(randomword string, slice []string, n int, letter string) {
-	for i := 0; i < n; i++ {
-		c := randomword[rand.Intn(len(randomword))]
-		for j := 0; j < len(randomword); j++ {
-			if randomword[j] == c {
-				slice[j] = string(c)
+func PrintNLetters(data *HangManData) {
+	for i := 0; i < data.NFormula; i++ {
+		c := data.Randomword[rand.Intn(len(data.Randomword))]
+		for j := 0; j < len(data.Randomword); j++ {
+			if data.Randomword[j] == c {
+				data.Slice[j] = string(c)
 			}
 		}
 	}
-	for j := 0; j < len(slice); j++ {
-		letter = slice[j]
-		fmt.Print(letter)
+	for j := 0; j < len(data.Slice); j++ {
+		data.Letter = data.Slice[j]
+		fmt.Print(data.Letter)
 		fmt.Print(" ")
 	}
 	fmt.Print("\n")
@@ -99,27 +99,27 @@ func IfInputIsTrue(data *HangManData) {
 		}
 	}
 }
-func IfInputIsTheFullWord(try string, letter string, sliceRandomword []string, randomword string) {
-	if try == randomword {
-		for j := 0; j < len(sliceRandomword); j++ {
-			letter = sliceRandomword[j]
-			fmt.Print(letter)
+func IfInputIsTheFullWord(data *HangManData) {
+	if data.Try == data.Randomword {
+		for j := 0; j < len(data.SliceRandomword); j++ {
+			data.Letter = data.SliceRandomword[j]
+			fmt.Print(data.Letter)
 			fmt.Print(" ")
 		}
 		fmt.Println("\n\nCongrats!")
 		return
 	}
 }
-func Start(randomword string, slice []string) {
-	for i := 0; i < len(randomword); i++ {
-		slice[i] = "_"
+func Start(data *HangManData) {
+	for i := 0; i < len(data.Randomword); i++ {
+		data.Slice[i] = "_"
 	}
 	fmt.Println("Good Luck, you have 10 attempts.")
 }
-func IfZeroTry(totaltry int, randomword string) bool {
+func IfZeroTry(data *HangManData) bool {
 	boolean := false
-	if totaltry == 0 {
-		fmt.Println("\nThe word was:", randomword)
+	if data.TotalTries == 0 {
+		fmt.Println("\nThe word was:", data.Randomword)
 		fmt.Println("\nTry again!")
 		boolean = true
 		return boolean

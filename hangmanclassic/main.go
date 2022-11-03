@@ -13,19 +13,19 @@ func main() {
 	data.NFormula = len(data.Randomword)/2 - 1
 	data.Slice = make([]string, len(data.Randomword))
 	data.SliceRandomword = make([]string, len(data.Randomword))
-	app.PrintLettersInTheFullSlice(data.SliceRandomword, data.Randomword)
-	app.Start(data.Randomword, data.Slice)
-	app.PrintNLetters(data.Randomword, data.Slice, data.NFormula, data.Letter)
+	app.PrintLettersInTheFullSlice(data)
+	app.Start(data)
+	app.PrintNLetters(data)
 	for true {
 		data.Boolean = false
-		if app.IfZeroTry(data.TotalTries, data.Randomword) == true {
+		if app.IfZeroTry(data) == true {
 			return
 		}
 		fmt.Print("\nChoose: ")
 		fmt.Scan(&data.Try)
-		app.IfInputIsTheFullWord(data.Try, data.Letter, data.SliceRandomword, data.Randomword)
+		app.IfInputIsTheFullWord(data)
 		app.IfInputIsTrue(data)
-		if app.IfSliceIsFull(data.Randomword, data.Slice) == true {
+		if app.IfSliceIsFull(data) == true {
 			fmt.Println("\n\nWell played!")
 			return
 		}
