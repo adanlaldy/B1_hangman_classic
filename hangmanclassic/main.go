@@ -23,6 +23,7 @@ func main() {
 		}
 		fmt.Print("\nChoose: ")
 		fmt.Scan(&data.Try)
+		data.Try = strings.ToUpper(data.Try)
 		app.IfInputIsTheFullWord(data)
 		app.IfInputIsTrue(data)
 		if app.IfSliceIsFull(data) == true {
