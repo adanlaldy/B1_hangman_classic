@@ -54,13 +54,17 @@ func PrintAscii(txt string) {
 		println()
 	}
 }
-func IfInputIsTheFullWord(data *HangManData) {
+func IfInputIsTheFullWord(data *HangManData) bool {
+	boolean := false
 	if data.Try == data.Randomword {
-		res := ""
 		for j := 0; j < len(data.SliceRandomword); j++ {
 			data.Letter = data.SliceRandomword[j]
-			res = res + data.Letter + " "
+			fmt.Print(data.Letter)
+			fmt.Print(" ")
 		}
-		return
+		fmt.Println("\n\nCongrats!")
+		boolean = true
+		return boolean
 	}
+	return boolean
 }
