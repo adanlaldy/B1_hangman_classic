@@ -27,7 +27,20 @@ func IfInputIsTrue(data *HangManData) {
 			data.Boolean = true
 		}
 	}
-	if data.Boolean == false {
+	// error message when the input is already entered
+	for i := 0; i < len(data.SliceTry); i++ {
+		if data.Try == data.SliceTry[i] {
+			fmt.Println("You can't enter the same letter twice, try again.")
+			data.Boolean2 = true
+			data.Boolean = false
+		}
+	}
+	if data.Boolean == true {
+		data.SliceTry = append(data.SliceTry, data.Try)
+	}
+	if data.Boolean == false && data.Boolean2 == false {
+		data.SliceTry = append(data.SliceTry, data.Try)
+		data.TotalTries--
 		data.TotalTries--
 		fmt.Printf("Not present in the word, %d attempts remaining\n", data.TotalTries)
 		PositionJose(data.TotalTries)
@@ -39,8 +52,7 @@ func IfInputIsTrue(data *HangManData) {
 		}
 	}
 }
-func IfInputIsTheFullWord(data *HangManData) bool {
-	boolean := false
+func IfInputIsTheFullWord(data *HangManData) {
 	if data.Try == data.Randomword {
 		for j := 0; j < len(data.SliceRandomword); j++ {
 			data.Letter = data.SliceRandomword[j]
@@ -48,8 +60,6 @@ func IfInputIsTheFullWord(data *HangManData) bool {
 			fmt.Print(" ")
 		}
 		fmt.Println("\n\nCongrats!")
-		boolean = true
-		return boolean
+		return
 	}
-	return boolean
 }
