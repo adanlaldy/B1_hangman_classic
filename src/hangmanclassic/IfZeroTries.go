@@ -39,7 +39,8 @@ func IfInputIsTrue(data *HangManData) {
 		}
 	}
 }
-func IfInputIsTheFullWord(data *HangManData) {
+func IfInputIsTheFullWord(data *HangManData) bool {
+	boolean := false
 	if data.Try == data.Randomword {
 		for j := 0; j < len(data.SliceRandomword); j++ {
 			data.Letter = data.SliceRandomword[j]
@@ -47,6 +48,8 @@ func IfInputIsTheFullWord(data *HangManData) {
 			fmt.Print(" ")
 		}
 		fmt.Println("\n\nCongrats!")
-		return
+		boolean = true
+		return boolean
 	}
+	return boolean
 }
