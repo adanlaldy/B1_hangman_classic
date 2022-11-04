@@ -37,7 +37,9 @@ func main() {
 		fmt.Print("\nChoose: ")
 		fmt.Scan(&data.Try)
 		data.Try = strings.ToUpper(data.Try)
-		IfInputIsTheFullWord(data)
+		if IfInputIsTheFullWord(data) == true {
+			return
+		}
 		IfInputIsTrue(data)
 		if IfSliceIsFull(data) == true {
 			fmt.Println("\n\nWell played!")
